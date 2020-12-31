@@ -4,9 +4,9 @@ import {incomeCategories, expenseCategories, resetCategories} from './datas/cata
 const useTransactions = (title)=>{
     resetCategories();
     const { transactions } = useGlobalContext();
-    // to get the exact category to add to
+    // to get the exact category to add i.e either Income or expense fro transaction
     const allCategories = transactions.filter(trans => trans.type === title); // title will be pass from function
-    const total = allCategories.reduce((acc, curVal) => acc += curVal.amount, 0);
+    const total = allCategories.reduce((acc, curVal) => acc += curVal.amount, 0); // sum all amount in a particular cat
 
     const categories =
       title === "Income" ? incomeCategories : expenseCategories;
@@ -15,10 +15,10 @@ const useTransactions = (title)=>{
 
     //loop through the allCategories to get each category where title = catrgory
     allCategories.forEach(trans =>{
-      const category = categories.find((cat) => cat.type === trans.category);
+      const specificCategory = categories.find((cat) => cat.type === trans.category);
       // to increase the amount
-      if (category) {
-          category.amount += trans.amount
+      if (specificCategory) {
+          specificCategory.amount += trans.amount
       }
     })
     //to remove category of amount lessthan or equal to 0

@@ -14,6 +14,7 @@ import { useGlobalContext } from "../../../context/context";
 import { v4 as uuidv4 } from "uuid";
 import { incomeCategories, expenseCategories } from "../../../datas/catagories";
 import FormatDate from '../../../utils/formatDate';
+import {useSpeechContext} from '@speechly/react-client'
 
 const initialState = {
   amount: "",
@@ -32,6 +33,8 @@ const Form = () => {
   const selectedCategory =
     formData.type === "Income" ? incomeCategories : expenseCategories;
 
+    const { segment } = useSpeechContext()
+
   const createTransaction = () => {
     const transaction = {
       ...formData,
@@ -46,7 +49,9 @@ const Form = () => {
     <Grid container spacing={2}>
       <Grid item xs={12}>
         <Typography align="center" gutterBottom variant="subtitle2">
-          .....
+          { segment ? (<>
+              {segment.words.map(word => word.value).join(' ')}
+          </>) : null}
         </Typography>
       </Grid>
       <Grid item xs={6}>
