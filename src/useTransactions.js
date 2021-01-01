@@ -11,8 +11,6 @@ const useTransactions = (title)=>{
     const categories =
       title === "Income" ? incomeCategories : expenseCategories;
 
-    console.log({ allCategories, total, categories });
-
     //loop through the allCategories to get each category where title = catrgory
     allCategories.forEach(trans =>{
       const specificCategory = categories.find((cat) => cat.type === trans.category);
